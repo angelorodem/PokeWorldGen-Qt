@@ -7,13 +7,15 @@ SOURCES += \
     world.cpp \
     sprite.cpp \
     generator.cpp \
-    tile.cpp
+    tile.cpp \
+    ../FastNoise/FastNoise.cpp
 
 HEADERS += \
     world.h \
     sprite.h \
     generator.h \
-    tile.h
+    tile.h \
+    ../FastNoise/FastNoise.h
 
 DISTFILES += \
     NOTAS
