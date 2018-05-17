@@ -62,14 +62,19 @@ std::vector<std::vector<uint32_t> > *Generator::simplexNoise(uint32_t xsize, uin
 }
 
 
-std::vector<std::vector<Generator::tile_type> > *Generator::analyseNoise(std::vector<std::vector<uint32_t>>* noise,
-                                                             uint32_t levels){
+std::vector<std::vector<Generator::tile_type> > *Generator::analyseNoise(std::vector<std::vector<uint32_t>>* noise){
     std::vector<std::vector<tile_type>>* hold = new std::vector<std::vector<tile_type>>();
 
-    for (uint32_t x = 0; x < noise->size()-2; ++x) {
+    for (uint32_t x = 0; x < noise->size(); ++x) {
         hold->push_back(std::vector<tile_type>());
-        for (uint32_t y = 0; y < noise[0][x].size()-2; ++y) {
-            hold[0][x].push_back(check_rules(noise,x+1,y+1));
+        for (uint32_t y = 0; y < noise[0][x].size(); ++y) {
+            hold->back().push_back(nothing);
+        }
+    }
+
+    for (uint32_t x = 2; x < hold->size()-2; ++x) {
+        for (uint32_t y = 2; y < hold[0][x].size()-2; ++y) {
+            hold[0][x].push_back(check_rules(noise,x,y));
         }
     }
 
@@ -79,24 +84,6 @@ std::vector<std::vector<Generator::tile_type> > *Generator::analyseNoise(std::ve
 }
 
 
-/*
- *
- *      se
-        dot = 495,
-        hline_north= 2,
-        hline_south= 128,
-        vline_west= 8,
-        vline_east= 32,
-        vconnection= 40,
-        hconnection= 130,
-
-        se_edge=416,
-        sw_edge=200,
-        nw_edge=11,
-        ne_edge=38,
-
-
-*/
 Generator::tile_type Generator::getTileType(const uint32_t sum) const
 {
     if(check_if_contains(sum,495)){
@@ -130,6 +117,7 @@ Generator::tile_type Generator::getTileType(const uint32_t sum) const
     }else if(check_if_contains(sum,2)){
         return hline_north;
     }
+    return nothing;
 
 }
 
@@ -141,41 +129,32 @@ bool Generator::check_if_contains(uint32_t number_src, uint32_t number_chk) cons
 
 
 
-Generator::tile_type Generator::check_rules(const std::vector<std::vector<uint32_t> > *noise, const uint32_t &x, const uint32_t &y) const
+Generator::tile_type Generator::check_rules(const std::vector<std::vector<uint32_t> > *noise, const uint32_t &x_, const uint32_t &y_) const
 {
 
     static std::array<uint32_t,9> dirs;
 
     dirs.fill(0);
 
-    static uint32_t xposf,xposb;
-    static uint32_t yposf,yposb;
-    for (uint32_t pos = 0; pos < 9; ++pos) {
-        if(pos == 4){
-            continue;
-        }
-        yposf = floor(pos/3);
-        xposf = pos - (yposf*3) + x;
-        yposf += y;
-
-        yposb = floor((8-pos)/3);
-        xposb = (8-pos) - (yposb*3) + x;
-        yposb += y;
+    for (uint32_t x = 0; x < 3; ++x) {
+        for (uint32_t y = 0; y < 3; ++y) {
 
 
-        if(noise[0][xposf][yposf] > noise[0][xposb][yposb]){
-            dirs[pos] = pow(2,pos);
-        }else if(noise[0][xposf][yposf] < noise[0][xposb][yposb]){
-            dirs[8-pos] = pow(2,8-pos);
+            if(noise[0][x+x_][y+y_] > noise[0][x_+(3-x)][y_+(3-y)]){
+                dirs[x+y*3] = pow(2,);
+            }else if(noise[0][x+x_][y+y_] < noise[0][x_+(3-x)][y_+(3-y)]){
+                dirs[(x+y*3)-9] = pow(2,);
+            }
         }
     }
+
 
     uint32_t sum = 0;
     for (int sum_c = 0; sum_c < 9; ++sum_c) {
         sum += dirs[sum_c];
     }
 
-    return aa;
+    return getTileType(sum);
 
 }
 

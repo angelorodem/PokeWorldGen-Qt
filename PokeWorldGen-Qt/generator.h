@@ -42,7 +42,9 @@ public:
         end_north=47,
         end_east=422,
         end_south=488,
-        end_west=203
+        end_west=203,
+
+        nothing = 0
 
                    };
 
@@ -53,9 +55,9 @@ public:
 
 
     std::vector<std::vector<uint32_t>>* simplexNoise(uint32_t xsize, uint32_t ysize, uint32_t levels);
-    std::vector<std::vector<tile_type>>* analyseNoise(std::vector<std::vector<uint32_t>>* noise, uint32_t levels);
+    std::vector<std::vector<tile_type>>* analyseNoise(std::vector<std::vector<uint32_t>>* noise);
 private:
-    tile_type check_rules(const std::vector<std::vector<uint32_t>>* noise,const uint32_t& x,const uint32_t& y) const;
+    tile_type check_rules(const std::vector<std::vector<uint32_t>>* noise, const uint32_t& x_, const uint32_t& y_) const;
 };
 
 #endif // GENERATOR_H
