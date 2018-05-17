@@ -1,12 +1,12 @@
 #include <QApplication>
 #include "generator.h"
+#include "viewport.h"
 
 int main(int argc, char* argv[]){
     QApplication app(argc,argv);
 
-    Generator gen;
-    gen.simplexNoise(150,150,5);
-
+    Viewport vp;
+    vp.show();
 
     return app.exec();
 }
