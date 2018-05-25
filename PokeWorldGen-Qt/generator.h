@@ -12,52 +12,65 @@
 #include <ctime>
 #include <cmath>
 #include <array>
+#include <memory>
 
 #include "../FastNoise/FastNoise.h"
 
-class Generator
-{
-    FastNoise noise_machine;
-    QLabel* show_map_label;
-public:
-    /*   N
-     * W   E
-     *   S
-    */
+#define contem(a,b) (((a)&(b))==(a))
 
-    enum tile_type :uint32_t {
-        dot = 495,
-        hline_north= 2,
-        hline_south= 128,
-        vline_west= 8,
-        vline_east= 32,
-        vconnection= 40,
-        hconnection= 130,
+class Generator {
+        FastNoise noise_machine;
+        QLabel *show_map_label;
+    public:
+        /*   N
+         * W   E
+         *   S
+        */
 
-        se_edge=416,
-        sw_edge=200,
-        nw_edge=11,
-        ne_edge=38,
+        /*
+        tile 16x16
 
-        end_north=47,
-        end_east=422,
-        end_south=488,
-        end_west=203,
+        total: 8x426
 
-        nothing = 0
+        */
 
-                   };
+        enum tile_type : uint32_t {
+            quina_ne_exter = 136,
+            quina_se_exter = 10,
+            quina_sw_exter = 34,
+            quina_nw_exter = 160,
 
-    inline tile_type getTileType(const uint32_t sum) const;
-    inline bool check_if_contains(uint32_t number_src, uint32_t number_chk) const;
+            quina_ne_inter = 140,
+            quina_nw_inter = 161,
 
-    Generator();
+            linha_vertical = 130,
+            linha_horizontal = 40,
+
+            muro_horizontal_w = 138,
+            muro_horizontal_e = 162,
+            muro_vertical_n = 42,
+            muro_vertical_s = 168,
+
+            solo = 511,
+
+            ponto = 16,
+
+        }
 
 
-    std::vector<std::vector<uint32_t>>* simplexNoise(uint32_t xsize, uint32_t ysize, uint32_t levels);
-    std::vector<std::vector<tile_type>>* analyseNoise(std::vector<std::vector<uint32_t>>* noise);
-private:
-    tile_type check_rules(const std::vector<std::vector<uint32_t>>* noise, const uint32_t& x_, const uint32_t& y_) const;
+
+        Generator();
+        std::shared_ptr<std::vector<std::vector<uint32_t>>> simplexNoise(uint32_t xsize,
+                uint32_t ysize,
+                uint32_t levels);
+
+
+        std::shared_ptr<std::vector<std::vector<tile_type>>> analyse_map(
+            std::shared_ptr<std::vector<std::vector<uint32_t>>> noise);
+
+        tile_type categorize_dots(uint32_t x, uint32_t y,
+                                  std::shared_ptr<std::vector<std::vector<uint32_t>>> noise);
+
 };
 
 #endif // GENERATOR_H
