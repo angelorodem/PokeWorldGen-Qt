@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+<cherrytree>
+	<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549367276.08" ts_lastsave="1549381056.34" unique_id="2">
+		<rich_text>Well, tilesets are a kind of texture that defines a terrain or objects, bridges...
+(kinda obvious)
+
+Terrain tilesets are organized based on the type of biome that they represent with their respective extructure,
+this “extructure” defines how this tile should be used, it may be a “grass” tile with a horizontal wall extructure,
+
+Terrain tilesets are organized in 28 kinds of extructures, they are:
+┌ ─ ┐   ╔ ═ ╗
+│ ┼ │   ║ ┼ ║ ├ ┤┬ ┴ □  ▐ ▄▀ ▬ ►◄
+└ ─ ┘   ╚ ═ ╝
+
+More specifically: Tile </rich_text>
+		<rich_text link="node 3 Tile types">Types</rich_text>
+		<rich_text>
+
+  
+</rich_text>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="Tile types" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549379857.63" ts_lastsave="1549381955.16" unique_id="3">
+			<rich_text justification="left"></rich_text>
+			<rich_text>Tile types
+
+Compass:
+    N
+W    E
+    S
+
+┼   Floor
+┌   Internal NW Corner 
+─   Internal Horizontal Up
+─   Internal Horizontal Down (sometimes not needed, it my be used “═   External Horizontal Up” instead)
+┐   Internal NE Corner
+│   Internal Vertical West   
+│   Internal Vertical East
+└   Internal SW Corner
+┘   Internal SE Corner
+
+╔   Extrenal NW Corner
+═   External Horizontal Up
+═   External Horizontal Down
+╗   External NE Corner
+║   External Vertical West (Sometimes same as │)
+║   External Vertical East  (Sometimes same as │from internel)
+╚   External SW Corner
+╝   External SE Corner
+
+┴   Hanging Block North
+├   Hanging Block East
+┤   Hanging Block West
+┬   Hanging Block South
+
+□   Loose Block
+
+▐   Full Vertical Wall
+▀   Half Vertical Wall UP
+▄   Half vertical Wall Down
+
+▬   Full Horizontal Wall
+◄   Half Vertical Wall Weast (i didnt found a character to illustrate, but its two single blocks side by side)
+►   Half Vertical Wall East</rich_text>
+			<encoded_png anchor="Tile types" char_offset="0">anchor</encoded_png>
+		</node>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset extructure example" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549381056.34" ts_lastsave="1549382905.56" unique_id="4">
+			<rich_text>┌ ─ ┐   ╔ ═ ╗
+│ ┼ │   ║ ┼ ║ ├ ┤┬ ┴ □  ▐ ▄▀ ▬ ►◄
+└ ─ ┘   ╚ ═ ╝
+
+All empty spaces are  ┼ wich are ground tiles
+
+in some tilesets ║ are equal to │
+</rich_text>
+			<rich_text justification="left"></rich_text>
+			<codebox char_offset="144" frame_height="400" frame_width="800" highlight_brackets="True" show_line_numbers="False" syntax_highlighting="plain-text" width_in_pixels="True">Height 1 (elevated area)
+                            ┌─────┐
+──┐                     │           │
+    │           ┌────╝           │
+    │           │                      │ 
+    │           │               ╔══┘
+    │           │               │
+    ╚═════╝            ►┤
+                          □       │
+                                   ╚═════╝
+Height (Lowered area)</codebox>
+		</node>
+	</node>
+</cherrytree>
