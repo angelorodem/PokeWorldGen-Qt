@@ -62,7 +62,7 @@ W    E
 ►   Half Vertical Wall East</rich_text>
 			<encoded_png anchor="Tile types" char_offset="0">anchor</encoded_png>
 		</node>
-		<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset extructure example" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549381056.34" ts_lastsave="1549382905.56" unique_id="4">
+		<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset extructure example" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549381056.34" ts_lastsave="1549387291.22" unique_id="4">
 			<rich_text>┌ ─ ┐   ╔ ═ ╗
 │ ┼ │   ║ ┼ ║ ├ ┤┬ ┴ □  ▐ ▄▀ ▬ ►◄
 └ ─ ┘   ╚ ═ ╝
@@ -73,16 +73,18 @@ in some tilesets ║ are equal to │
 </rich_text>
 			<rich_text justification="left"></rich_text>
 			<codebox char_offset="144" frame_height="400" frame_width="800" highlight_brackets="True" show_line_numbers="False" syntax_highlighting="plain-text" width_in_pixels="True">Height 1 (elevated area)
-                            ┌─────┐
-──┐                     │           │
-    │           ┌────╝           │
-    │           │                      │ 
-    │           │               ╔══┘
-    │           │               │
-    ╚═════╝            ►┤
-                          □       │
-                                   ╚═════╝
-Height (Lowered area)</codebox>
+                            ┌─────┐                                                                               
+──┐                     │           │                                                                               
+    │           ┌────╝           │                                                                               
+    │           │                      │                                                                               
+    │           │               ╔══┘                                                                                
+    │           │               │   ┌═════════════════                                            
+    │           │               │   │   ╔══╗                                                                        
+    ╚═════╝            ►┤   │   └┐  │                                                                         
+                                   │   └──┘  │                                                                        
+                          □       │              │                                                                         
+                                   ╚══════╝                                                                         
+Height (Lowered area)                                                                                              </codebox>
 		</node>
 	</node>
 </cherrytree>
