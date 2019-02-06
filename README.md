@@ -5,7 +5,8 @@ Well, this actually don't generate a pokemon world yet, it procedurally spawns s
 
 It currently generates 3 maps, a terrain height map, the temperature distribution map, and a rain distribution map.
 
-Tileset map, generated only from height map and later it will use temperature and rain to form biomes and influence tiles types.
+Tileset map, generated only from height map.
+Later it will use temperature and rain to form biomes and influence the tileset "biome".
 
 ![Terrain tiles](https://github.com/angelorodem/PokeWorldGen-Qt/blob/master/images/terrain_tiles.png?raw=true)
 
