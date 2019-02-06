@@ -21,8 +21,8 @@ class Viewport : public QOpenGLWidget {
 
         void paintEvent(QPaintEvent *e);
     private:
-        std::shared_ptr<std::vector<std::vector<Generator::tile_type>>> mapa;
-        std::shared_ptr<std::vector<std::vector<uint32_t>>> noise;
+        Generator::tile_2d_vector mapa;
+        Generator::ui32_2d_vector noise;
 };
 
 #endif // VIEWPORT_H

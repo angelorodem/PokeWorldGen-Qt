@@ -20,7 +20,10 @@
 
 class Generator {
         FastNoise noise_machine;
-        QLabel *show_map_label;
+
+        QLabel *terrain_window;
+        QLabel *temperature_window;
+        QLabel *rain_window;
     public:
         /*   N
              * W   E
@@ -107,26 +110,43 @@ class Generator {
 
             solo = 511,
 
-            the_void = 0
+            the_void = 0,
+            water = 999
         };
 
         Generator();
 
-        std::shared_ptr<std::vector<std::vector<Generator::tile_type>>> tiles;
+        typedef std::shared_ptr<std::vector<std::vector<uint32_t>>> ui32_2d_vector;
+        typedef std::shared_ptr<std::vector<std::vector<Generator::tile_type>>> tile_2d_vector;
 
-        std::shared_ptr<std::vector<std::vector<uint32_t>>> simplexNoise(uint32_t xsize,
+        ui32_2d_vector terrain_noise;
+        ui32_2d_vector temperature_noise;
+        ui32_2d_vector rain_noise;
+
+        tile_2d_vector generate_map();
+
+        void show_terrain(uint32_t xsize, uint32_t ysize);
+        void show_temperature(uint32_t xsize, uint32_t ysize);
+        void show_rain(uint32_t xsize, uint32_t ysize);
+
+        void generate_terrain(uint32_t width_p, uint32_t height_p, uint32_t deepness);
+        void generate_temperature(uint32_t width_p, uint32_t height_p, uint32_t deepness);
+        void generate_rain(uint32_t width_p, uint32_t height_p, uint32_t deepness);
+
+        tile_2d_vector tiles;
+
+        ui32_2d_vector simplexNoise(uint32_t xsize,
                 uint32_t ysize,
                 uint32_t levels);
 
-        uint32_t levels_map;
+        tile_2d_vector analyse_map(
+            ui32_2d_vector &noise);
 
-        std::shared_ptr<std::vector<std::vector<tile_type>>> analyse_map(
-            std::shared_ptr<std::vector<std::vector<uint32_t> > > &noise);
+        tile_type categorize_dots(int32_t x, int32_t y,
+                                  ui32_2d_vector &noise);
+        uint32_t common_height(std::array<uint32_t, 9> &array, uint32_t current_height);
 
-        tile_type categorize_dots(uint32_t x, uint32_t y,
-                                  std::shared_ptr<std::vector<std::vector<uint32_t> > > &noise);
-        uint32_t common_height(std::array<uint32_t, 9> &array);
-
+        void make_lakes(ui32_2d_vector &noise, uint32_t water_drops);
 
 };
 

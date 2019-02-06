@@ -53,7 +53,7 @@ W    E
 </rich_text>
 			<encoded_png anchor="Tile types" char_offset="0">anchor</encoded_png>
 		</node>
-		<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset extructure example" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549381056.34" ts_lastsave="1549404025.1" unique_id="4">
+		<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset extructure example" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549381056.34" ts_lastsave="1549455570.66" unique_id="4">
 			<rich_text>┌ ─ ┐   ╔ ═ ╗
 │ ┼ │   ║ ┼ ║
 └ ─ ┘   ╚ ═ ╝
@@ -64,7 +64,7 @@ in some tilesets ║ are equal to │
 
 </rich_text>
 			<rich_text justification="left"></rich_text>
-			<codebox char_offset="125" frame_height="250" frame_width="440" highlight_brackets="True" show_line_numbers="False" syntax_highlighting="plain-text" width_in_pixels="True">Height 1 (elevated area)
+			<codebox char_offset="125" frame_height="265" frame_width="440" highlight_brackets="True" show_line_numbers="False" syntax_highlighting="plain-text" width_in_pixels="True">Height 1 (elevated area)
                             ┌─────┐                                      
 ──┐                     │           │                                      
     │           ┌────╝           │                                      
@@ -79,14 +79,11 @@ in some tilesets ║ are equal to │
                                    ╚══════╝                             
 Height (Lowered area)                                                     </codebox>
 		</node>
-		<node custom_icon_id="0" foreground="" is_bold="False" name="How a tile is choosen?" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549408058.65" ts_lastsave="1549411183.52" unique_id="1">
+		<node custom_icon_id="0" foreground="" is_bold="False" name="How a tile is choosen?" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549408058.65" ts_lastsave="1549455592.32" unique_id="1">
 			<rich_text>
-
-
 1    2       4
 8    16     32
 64  128   256
-
 </rich_text>
 		</node>
 	</node>
