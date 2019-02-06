@@ -112,6 +112,8 @@ class Generator {
 
         Generator();
 
+        std::shared_ptr<std::vector<std::vector<Generator::tile_type>>> tiles;
+
         std::shared_ptr<std::vector<std::vector<uint32_t>>> simplexNoise(uint32_t xsize,
                 uint32_t ysize,
                 uint32_t levels);
@@ -123,6 +125,7 @@ class Generator {
 
         tile_type categorize_dots(uint32_t x, uint32_t y,
                                   std::shared_ptr<std::vector<std::vector<uint32_t> > > &noise);
+        uint32_t common_height(std::array<uint32_t, 9> &array);
 
 
 };

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <cherrytree>
-	<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549367276.08" ts_lastsave="1549388513.73" unique_id="2">
+	<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549367276.08" ts_lastsave="1549409677.53" unique_id="2">
 		<rich_text>Well, tilesets are a kind of texture that defines a terrain or objects, bridges...
 (kinda obvious)
 
@@ -11,6 +11,11 @@ Terrain tilesets are organized in 17 kinds of extructures, they are:
 ┌ ─ ┐   ╔ ═ ╗
 │ ┼ │   ║ ┼ ║
 └ ─ ┘   ╚ ═ ╝
+
+sometimes only 13 are used becuse │ and ║ can be the same
+
+note, single tiles are removed, it would need handcrafted tileset for them
+Eg: a single raised tile in a middle of all flat tiles
 
 More specifically: Tile </rich_text>
 		<rich_text link="node 3 Tile types">Types</rich_text>
@@ -48,7 +53,7 @@ W    E
 </rich_text>
 			<encoded_png anchor="Tile types" char_offset="0">anchor</encoded_png>
 		</node>
-		<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset extructure example" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549381056.34" ts_lastsave="1549387746.34" unique_id="4">
+		<node custom_icon_id="0" foreground="" is_bold="False" name="Tileset extructure example" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549381056.34" ts_lastsave="1549404025.1" unique_id="4">
 			<rich_text>┌ ─ ┐   ╔ ═ ╗
 │ ┼ │   ║ ┼ ║
 └ ─ ┘   ╚ ═ ╝
@@ -56,21 +61,33 @@ W    E
 All empty spaces are  ┼ wich are ground tiles
 
 in some tilesets ║ are equal to │
+
 </rich_text>
 			<rich_text justification="left"></rich_text>
-			<codebox char_offset="124" frame_height="400" frame_width="800" highlight_brackets="True" show_line_numbers="False" syntax_highlighting="plain-text" width_in_pixels="True">Height 1 (elevated area)
-                            ┌─────┐                                                                               
-──┐                     │           │                                                                               
-    │           ┌────╝           │                                                                               
-    │           │                      │                                                                               
-    │           │               ╔══┘                                                                                
-    │           │               │   ┌═════════════════                                            
-    │           │               │   │   ╔══╗                                                                        
-    ╚═════╝               │   │   └┐  │                                                                         
-                                   │   └──┘  │                                                                        
-                                   │              │                                                                         
-                                   ╚══════╝                                                                         
-Height (Lowered area)                                                                                              </codebox>
+			<codebox char_offset="125" frame_height="250" frame_width="440" highlight_brackets="True" show_line_numbers="False" syntax_highlighting="plain-text" width_in_pixels="True">Height 1 (elevated area)
+                            ┌─────┐                                      
+──┐                     │           │                                      
+    │           ┌────╝           │                                      
+    │           │                      │                                      
+    │           │               ╔══┘                                    
+    │           │               │                                            
+    │           │               │   ┌═════════════════  
+    │           │               │   │   ╔══╗                            
+    ╚═════╝               │   │   └┐  │                            
+                                   │   └──┘  │                            
+                                   │              │                            
+                                   ╚══════╝                             
+Height (Lowered area)                                                     </codebox>
+		</node>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="How a tile is choosen?" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1549408058.65" ts_lastsave="1549411183.52" unique_id="1">
+			<rich_text>
+
+
+1    2       4
+8    16     32
+64  128   256
+
+</rich_text>
 		</node>
 	</node>
 </cherrytree>

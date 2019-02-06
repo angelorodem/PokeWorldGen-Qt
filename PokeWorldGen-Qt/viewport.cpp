@@ -10,8 +10,8 @@ Viewport::Viewport() {
     Generator gen;
 
 
-    noise = gen.simplexNoise(400, 400, 5);
-
+    noise = gen.simplexNoise(32, 32, 5);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 300);
     mapa = gen.analyse_map(noise);
 
     QTimer::singleShot(16, this, SLOT(tick()));
