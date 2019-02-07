@@ -76,6 +76,19 @@ void Generator::generate_rain(uint32_t width_p, uint32_t height_p, uint32_t deep
     show_rain(width_p,height_p);
 }
 
+void Generator::generate_rivers()
+{
+    //Find a mountain BASE within a high rain area
+    //Find a noisy path to the sea respecting height starting by the mountain base
+    //Erode reducing the height of the path and change tiles to water
+}
+
+void Generator::generate_lakes()
+{
+    //Find a random 0 height block
+    //check its type, and if its not water, flood fill it to water
+}
+
 void Generator::show_terrain(uint32_t xsize, uint32_t ysize)
 {
      terrain_window = new QLabel();
@@ -340,11 +353,6 @@ uint32_t Generator::common_height(std::array<uint32_t, 9>& array, uint32_t curre
     return topElement;
 }
 
-void Generator::make_lakes(Generator::ui32_2d_vector &noise, uint32_t water_drops)
-{
-
-
-}
 
 
 

@@ -132,6 +132,15 @@ class Generator {
         void generate_terrain(uint32_t width_p, uint32_t height_p, uint32_t deepness);
         void generate_temperature(uint32_t width_p, uint32_t height_p, uint32_t deepness);
         void generate_rain(uint32_t width_p, uint32_t height_p, uint32_t deepness);
+        void generate_biomes();
+
+        void generate_rivers();
+        void generate_lakes();
+        void generate_trees();
+        void generate_cities();
+        void generate_villages();
+        void generate_paths();
+
 
         tile_2d_vector tiles;
 
@@ -146,7 +155,6 @@ class Generator {
                                   ui32_2d_vector &noise);
         uint32_t common_height(std::array<uint32_t, 9> &array, uint32_t current_height);
 
-        void make_lakes(ui32_2d_vector &noise, uint32_t water_drops);
 
 };
 
