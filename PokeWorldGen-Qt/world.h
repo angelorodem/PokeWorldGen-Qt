@@ -6,21 +6,24 @@
 
 
 class World {
-    public:
-        World(uint32_t width_, uint32_t height_);
+public:
+    World(uint32_t width_, uint32_t height_);
 
-        uint32_t width;
-        uint32_t height;
+    uint32_t width;
+    uint32_t height;
 
-        struct tileset {
-            tileset() {}
-            Generator::tile_type tipo_tile;
-            Generator::biomas_type tipo_bioma;
-            uint32_t variante = 0;
-        };
+    struct tileset {
+        tileset() {}
+        Generator::tile_type type;
+        Generator::biome_type biome;
+        TilesetBioma::texture texture;
+        uint32_t height; //not used yet
+        bool blocks;
+    };
 
-        std::shared_ptr<std::vector<std::vector<tileset>>> mapa;
+    typedef std::shared_ptr<std::vector<std::vector<tileset>>> Map;
 
+    Map world_map;
 
 };
 

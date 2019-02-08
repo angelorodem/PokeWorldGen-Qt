@@ -16,8 +16,6 @@
 
 #include "../FastNoise/FastNoise.h"
 
-#define contem(a,b) (((a)&(b))==(a))
-
 class Generator {
         FastNoise noise_machine;
 
@@ -25,42 +23,8 @@ class Generator {
         QLabel *temperature_window;
         QLabel *rain_window;
     public:
-        /*   N
-             * W   E
-             *   S
-            */
 
-        /*
-            tile 16x16
-
-            total: 8x426
-
-            */
-
-        /*
-            u3_t3_floresta_tropical,
-            u3_t2_floresta_temperada,
-            u3_t1_floresta_boreal,
-            u3_t0_neve,
-
-            u2_t3_floresta_temperada,
-            u2_t2_floresta_temperada,
-            u2_t1_floresta_boreal,
-            u2_t0_neve,
-
-            u1_t3_grassland_deserto,
-            u1_t2_grassland_deserto,
-            u1_t1_grassland_boreal,
-            u1_t0_neve_tundra,
-
-            u0_t3_deserto,
-            u0_t2_grassland_deserto,
-            u0_t1_grassland,
-            u0_t0_tundra,*/
-
-
-
-        enum biomas_type : uint32_t {
+        enum biome_type : uint32_t {
             floresta_tropical,
             floresta_temperada,
             floresta_boreal,
@@ -87,29 +51,12 @@ class Generator {
             quina_sw_inter = 507,
             quina_nw_inter = 255,
 
-            linha_vertical = 146,
-            linha_horizontal = 56,
-
-            linha_vertical_end_s = 18,
-            linha_vertical_end_n = 144,
-
-            linha_horizontal_end_e = 24,
-            linha_horizontal_end_w = 48,
-
-            linha_quina_ne = 152,
-            linha_quina_se = 26,
-            linha_quina_sw = 50,
-            linha_quina_nw = 176,
-
-            muro_vertical_w = 154,
-            muro_vertical_e = 178,
+            muro_vertical_w = 178,
+            muro_vertical_e = 154,
             muro_horizontal_n = 58,
             muro_horizontal_s = 184,
 
-            ponto = 16,
-
             solo = 511,
-
             the_void = 0,
             water = 999
         };
@@ -123,7 +70,7 @@ class Generator {
         ui32_2d_vector temperature_noise;
         ui32_2d_vector rain_noise;
 
-        tile_2d_vector generate_map();
+        tile_2d_vector generate_map(uint32_t size);
 
         void show_terrain(uint32_t xsize, uint32_t ysize);
         void show_temperature(uint32_t xsize, uint32_t ysize);

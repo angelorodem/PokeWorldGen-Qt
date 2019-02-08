@@ -4,7 +4,7 @@ World::World(uint32_t width_, uint32_t height_) {
     width = width_;
     height = height_;
 
-    mapa = std::make_shared<std::vector<std::vector<tileset>>>();
+    world_map = std::make_shared<std::vector<std::vector<tileset>>>();
 
 
 }

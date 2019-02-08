@@ -48,8 +48,8 @@ class TilePicker : public QWidget {
         uint32_t x_o = 0;
         uint32_t y_o = 0;
 
-        const uint32_t tiles_size = 24;
-        const QString tiles_string[24] = {
+        const uint32_t tiles_size = 13;
+        const QString tiles_string[13] = {
             "Quina NE Externa",
             "Quina SE Externa",
             "Quina SW Externa",
@@ -60,26 +60,10 @@ class TilePicker : public QWidget {
             "Quina SW Interna",
             "Quina NW Interna",
 
-            "Linha vertical",
-            "Linha horizontal",
-
-            "Linha vertical final sul",
-            "Linha vertical final norte",
-
-            "Linha horizontal final east",
-            "Linha horizontal final west",
-
-            "Linha Quina NE",
-            "Linha Quina SE",
-            "Linha Quina SW",
-            "Linha Quina NW",
-
             "Muro vertical west",
             "Muro vertical east",
             "Muro horizontal norte",
             "Muro horizontal sul",
-
-            "Pedra alta",
 
             "Solo"
         };
@@ -100,7 +84,7 @@ class TilePicker : public QWidget {
             "Deserto",
         };
 
-        Generator::tile_type tile_seq[24]  {
+        Generator::tile_type tile_seq[13]  {
             Generator::quina_ne_exter,
             Generator::quina_se_exter,
             Generator::quina_sw_exter,
@@ -111,26 +95,10 @@ class TilePicker : public QWidget {
             Generator::quina_sw_inter,
             Generator::quina_nw_inter,
 
-            Generator::linha_vertical,
-            Generator::linha_horizontal,
-
-            Generator::linha_vertical_end_s,
-            Generator::linha_vertical_end_n,
-
-            Generator::linha_horizontal_end_e,
-            Generator::linha_horizontal_end_w,
-
-            Generator::linha_quina_ne,
-            Generator::linha_quina_se,
-            Generator::linha_quina_sw,
-            Generator::linha_quina_nw,
-
             Generator::muro_vertical_w,
             Generator::muro_vertical_e,
             Generator::muro_horizontal_n,
             Generator::muro_horizontal_s,
-
-            Generator::ponto,
 
             Generator::solo
         };

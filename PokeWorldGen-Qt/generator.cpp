@@ -5,10 +5,8 @@
 Generator::Generator() {
 }
 
-Generator::tile_2d_vector Generator::generate_map()
+Generator::tile_2d_vector Generator::generate_map(uint32_t size)
 {
-    uint32_t size = 400;
-
     generate_terrain(size,size,5);
     generate_rain(size,size,20);
     generate_temperature(size,size,100);
@@ -31,7 +29,6 @@ void Generator::generate_terrain(uint32_t width_p, uint32_t height_p, uint32_t d
 
 
     terrain_noise = simplexNoise(width_p, height_p, deepness);
-    // mapa = gen.analyse_map(noise);
 
     show_terrain(width_p,height_p);
 
@@ -207,22 +204,6 @@ Generator::tile_type Generator::categorize_dots(int32_t x, int32_t y,
         quina_se_exter,
         quina_sw_exter,
         quina_nw_exter,
-        /*
-            linha_vertical,
-            linha_horizontal,
-
-            linha_quina_ne,
-            linha_quina_se,
-            linha_quina_sw,
-            linha_quina_nw,
-
-            linha_vertical_end_s,
-            linha_vertical_end_n,
-
-            linha_horizontal_end_e,
-            linha_horizontal_end_w,
-
-            ponto*/
     };
 
     static const std::array<tile_type, 5> big_tiles = {
