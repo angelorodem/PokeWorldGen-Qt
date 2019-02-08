@@ -228,10 +228,10 @@ Generator::tile_type Generator::categorize_dots(int32_t x, int32_t y,
                 soma += pow(2, (x_g + (y_g * 3)));
             } else if ((*noise)[x - 1 + x_g][y - 1 + y_g] > height) {
                 //TODO: seems wrong
-                //soma += pow(2, (x_g + (y_g * 3)));
+                soma += pow(2, (x_g + (y_g * 3)));
                 //deveria ser um muro do mesmo sentido
                 //qDebug() << "crosh?";
-                return solo;
+                //return solo;
             }
         }
     }

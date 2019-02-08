@@ -53,8 +53,8 @@ class Generator {
 
             muro_vertical_w = 178,
             muro_vertical_e = 154,
-            muro_horizontal_n = 58,
-            muro_horizontal_s = 184,
+            muro_horizontal_n = 184,
+            muro_horizontal_s = 58,
 
             solo = 511,
             the_void = 0,
