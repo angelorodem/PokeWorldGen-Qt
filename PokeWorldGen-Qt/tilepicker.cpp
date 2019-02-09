@@ -47,7 +47,7 @@ TilePicker::TilePicker(std::shared_ptr<TilesetBioma> bioma) :
 
     }else{
         QMessageBox::information(this, tr("Unable to open file"),
-                                 file.errorString());
+                                 "Your tileset will be stored in the save.bin");
     }
 
 

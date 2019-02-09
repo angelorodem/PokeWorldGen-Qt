@@ -52,10 +52,10 @@ class Generator {
             quina_sw_inter = 507,
             quina_nw_inter = 255,
 
-            muro_vertical_w = 178,
-            muro_vertical_e = 154,
-            muro_horizontal_n = 184,
-            muro_horizontal_s = 58,
+            muro_vertical_w = 438,//178
+            muro_vertical_e = 219,//154
+            muro_horizontal_n = 504,//184
+            muro_horizontal_s = 63,//58
 
             solo = 511,
             the_void = 0,

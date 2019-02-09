@@ -7,7 +7,7 @@ Generator::Generator() {
 
 Generator::tile_2d_vector Generator::generate_map(uint32_t size)
 {
-    generate_terrain(size,size,5);
+    generate_terrain(size,size,8);
     generate_rain(size,size,20);
     generate_temperature(size,size,100);
 
@@ -88,21 +88,21 @@ void Generator::generate_lakes()
 
 void Generator::show_terrain(uint32_t xsize, uint32_t ysize)
 {
-     terrain_window = new QLabel();
+    terrain_window = new QLabel();
 
-     QImage map(xsize, ysize, QImage::Format_Grayscale8);
+    QImage map(xsize, ysize, QImage::Format_Grayscale8);
 
-     for (uint32_t x = 0; x < terrain_noise->size(); ++x) {
-         for (uint32_t y = 0; y < (*terrain_noise)[x].size(); ++y) {
-             uint32_t res = (*terrain_noise)[x][y];
-             map.setPixel(x, y, qRgb(res, res, res));
-         }
-     }
+    for (uint32_t x = 0; x < terrain_noise->size(); ++x) {
+        for (uint32_t y = 0; y < (*terrain_noise)[x].size(); ++y) {
+            uint32_t res = (*terrain_noise)[x][y];
+            map.setPixel(x, y, qRgb(res, res, res));
+        }
+    }
 
-     terrain_window->setPixmap(QPixmap::fromImage(map.scaled(xsize + 405,
-                                                             ysize + 405)));
-     terrain_window->setWindowTitle("TERRAIN");
-     terrain_window->show();
+    terrain_window->setPixmap(QPixmap::fromImage(map.scaled(xsize + 405,
+                                                            ysize + 405)));
+    terrain_window->setWindowTitle("TERRAIN");
+    terrain_window->show();
 }
 
 
@@ -120,7 +120,7 @@ void Generator::show_temperature(uint32_t xsize, uint32_t ysize)
     }
 
     temperature_window->setPixmap(QPixmap::fromImage(map.scaled(xsize + 405,
-                                                            ysize + 405)));
+                                                                ysize + 405)));
     temperature_window->setWindowTitle("TEMPERATURE");
     temperature_window->show();
 }
@@ -139,7 +139,7 @@ void Generator::show_rain(uint32_t xsize, uint32_t ysize)
     }
 
     rain_window->setPixmap(QPixmap::fromImage(map.scaled(xsize + 405,
-                                                            ysize + 405)));
+                                                         ysize + 405)));
     rain_window->setWindowTitle("RAIN");
     rain_window->show();
 }
@@ -206,9 +206,7 @@ Generator::tile_type Generator::categorize_dots(int32_t x, int32_t y,
         quina_nw_exter,
     };
 
-    static const std::array<tile_type, 5> big_tiles = {
-        solo,
-
+    static const std::array<tile_type, 4> big_tiles = {
         quina_nw_inter,
         quina_ne_inter,
         quina_sw_inter,
@@ -238,30 +236,64 @@ Generator::tile_type Generator::categorize_dots(int32_t x, int32_t y,
 
     //verifies if a tile structure is inside the current tile
     //using logical AND operation
-    for (uint32_t con_c = 0; con_c < 5; ++con_c) {
-        uint32_t res = soma & static_cast<uint32_t>(big_tiles[con_c]);
-        if (res == static_cast<uint32_t>(big_tiles[con_c])) {
-            return big_tiles[con_c];
-        }
-    }
+    bool matched = false;
+    uint32_t res;
+    uint32_t match_count = 0;
+    tile_type first_match = the_void;
 
-    if ((soma & 186) == 186) {
-        //qDebug() << "solo by 186" << soma << " " << x  << " " << y;
+
+    if ((soma & static_cast<uint32_t>(solo)) == static_cast<uint32_t>(solo)) {
         return solo;
     }
 
-    //verifies if a tile structure is inside the current tile
-    //using logical AND operation
-    for (uint32_t con_c = 0; con_c < 8; ++con_c) {
-        uint32_t res = soma & static_cast<uint32_t>(check[con_c]);
+
+
+    for (uint32_t con_c = 0; con_c < 5; ++con_c) {
+        res = soma & static_cast<uint32_t>(big_tiles[con_c]);
+        if (res == static_cast<uint32_t>(big_tiles[con_c])) {
+            //return big_tiles[con_c];
+            match_count++;
+            if (!matched) {
+                matched = true;
+                first_match = big_tiles[con_c];
+            }
+        }
+    }
+
+    if (matched && match_count == 1) {
+        //qDebug() << "ok";
+        return first_match;
+    }
+
+    for (uint32_t con_c = 0; con_c < 4; ++con_c) { // check if its a wall
+        res = soma & static_cast<uint32_t>(check[con_c]);
         if (res == static_cast<uint32_t>(check[con_c])) {
             return check[con_c];
         }
     }
 
+    //verifies if a tile structure is inside the current tile
+    //using logical AND operation
+    if (!matched)
+        for (uint32_t con_c = 4; con_c < 8; ++con_c) { // ignore walls and check for corner conflics
+            res = soma & static_cast<uint32_t>(check[con_c]);
+            if (res == static_cast<uint32_t>(check[con_c])) {
+                //return check[con_c];
+                match_count++;
+                if (!matched) {
+                    matched = true;
+                    first_match = check[con_c];
+                }
+            }
+        }
+
+    if (matched && match_count == 1) {
+        //qDebug() << "no corner conflict";
+        return first_match;
+    }
+
     uint32_t new_height = common_height(vals,height);
 
-    //qDebug() << "Not valid, val: " << soma << " CHei " << (*noise)[x][y] << " NHei " << new_height << " x: " << x << " y: " << y;
     (*noise)[x][y] = new_height;
 
     int32_t max_x = x+2, max_y=y+2;
@@ -270,26 +302,21 @@ Generator::tile_type Generator::categorize_dots(int32_t x, int32_t y,
 
     if(x+2 >= (*noise).size() ){
         max_x-=1;
-        //qDebug("opsmax");
     }else if(x - 2 <= 1){
         min_x+=1;
-        //qDebug("opsmix");
     }
 
     if(y+2 >= (*noise).at(0).size()){
         max_y-=1;
-        //qDebug("opsmay");
     }else if(y-2 <= 1){
-        //qDebug("opsmiy");
         min_y+=1;
     }
 
-    tile_type return_value;
+    tile_type return_value = the_void;
     for(int32_t recalc_x = min_x;recalc_x < max_x; ++recalc_x){
         for (int32_t recalc_y = min_y; recalc_y < max_y; ++recalc_y) {
             tile_type temp = categorize_dots(recalc_x, recalc_y, noise);
             if(temp != (*tiles)[recalc_x][recalc_y]){
-                //qDebug() << "new value " << temp << " was " << (*tiles)[recalc_x][recalc_y];
                 if(recalc_x == x && recalc_y == y){
                     return_value = temp;
                     continue;
