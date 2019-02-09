@@ -10,6 +10,8 @@
 #include <cstdint>
 #include <memory>
 
+#include "tilepicker.h"
+#include "tilesetbioma.h"
 #include "generator.h"
 
 class Viewport : public QOpenGLWidget {
@@ -20,9 +22,12 @@ class Viewport : public QOpenGLWidget {
         Viewport();
 
         void paintEvent(QPaintEvent *e);
+        void drawDebug(QPainter &p);
+        void drawTiles(QPainter &p);
     private:
         Generator::tile_2d_vector mapa;
         Generator::ui32_2d_vector noise;
+        std::shared_ptr<TilesetBioma> tileset_texture;
 };
 
 #endif // VIEWPORT_H

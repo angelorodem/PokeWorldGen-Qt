@@ -1,11 +1,12 @@
 #ifndef TILEPICKER_H
 #define TILEPICKER_H
 
-#include <QWidget>
+#include <QDialog>
 #include <QImage>
 #include <QPixmap>
 #include <QFileDialog>
 #include <QDir>
+#include <QLabel>
 
 #include "tilesetbioma.h"
 
@@ -15,11 +16,11 @@ namespace Ui {
 class TilePicker;
 }
 
-class TilePicker : public QWidget {
+class TilePicker : public QDialog {
         Q_OBJECT
 
     public:
-        explicit TilePicker(std::shared_ptr<TilesetBioma> bioma, QWidget *parent = 0);
+        explicit TilePicker(std::shared_ptr<TilesetBioma> bioma);
         ~TilePicker();
 
     private slots:
@@ -33,16 +34,20 @@ class TilePicker : public QWidget {
 
         void on_add_but_clicked();
 
-    private:
+        void on_pushButton_clicked();
+
+private:
         Ui::TilePicker *ui;
         QImage imagem;
         uint32_t current_tile = 0;
-        std::vector<std::shared_ptr<std::vector<std::shared_ptr<QPixmap>>>> vetor_tipos;
-        std::shared_ptr<std::vector<std::shared_ptr<QPixmap>>> temp_vector;
+
+        std::vector<TilesetBioma::texture_vector> vetor_tipos;
+        TilesetBioma::texture_vector temp_vector;
 
         std::shared_ptr<TilesetBioma> bioma_ref;
 
         uint32_t tile_width = 16, tile_height = 16;
+
         uint32_t x = 0;
         uint32_t y = 0;
         uint32_t x_o = 0;
@@ -50,38 +55,38 @@ class TilePicker : public QWidget {
 
         const uint32_t tiles_size = 13;
         const QString tiles_string[13] = {
-            "Quina NE Externa",
-            "Quina SE Externa",
-            "Quina SW Externa",
-            "Quina NW Externa",
+            "NE External edge",
+            "SE External edge",
+            "SW External edge",
+            "NW External edge",
 
-            "Quina NE Interna",
-            "Quina SE Interna",
-            "Quina SW Interna",
-            "Quina NW Interna",
+            "NE Internal edge",
+            "SE Internal edge",
+            "SW Internal edge",
+            "NW Internal edge",
 
-            "Muro vertical west",
-            "Muro vertical east",
-            "Muro horizontal norte",
-            "Muro horizontal sul",
+            "Vertical Wall West",
+            "Vertical Wall East",
+            "Horizontal Wall North",
+            "Horizontal Wall South",
 
-            "Solo"
+            "Ground"
         };
 
         const uint32_t biomas_size = 10;
         const QString biomas_string[10] = {
-            "Floresta tropical",
-            "Floresta temperada",
-            "Floresta boreal",
+            "Tropical Forest",
+            "Temperate Forest",
+            "Boreal Forest",
 
-            "Grassland/Deserto",
+            "Grassland/Desert",
             "Grassland",
             "Grassland/Boreal",
 
-            "Neve",
-            "Neve/Tundra",
+            "Snow",
+            "Snow/Tundra",
             "Tundra",
-            "Deserto",
+            "Desert",
         };
 
         Generator::tile_type tile_seq[13]  {

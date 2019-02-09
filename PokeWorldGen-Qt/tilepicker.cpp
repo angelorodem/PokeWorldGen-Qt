@@ -1,11 +1,11 @@
 #include "tilepicker.h"
 #include "ui_tilepicker.h"
 
-TilePicker::TilePicker(std::shared_ptr<TilesetBioma> bioma, QWidget *parent) :
-    QWidget(parent),
+TilePicker::TilePicker(std::shared_ptr<TilesetBioma> bioma) :
     ui(new Ui::TilePicker) {
     ui->setupUi(this);
     bioma_ref = bioma;
+
     connect(ui->size_spin, SIGNAL(valueChanged(int)), this,
             SLOT(update_tile_pos()));
     connect(ui->coluna_spin, SIGNAL(valueChanged(int)), this,
@@ -37,8 +37,8 @@ void TilePicker::on_ok_but_clicked() {
 
 void TilePicker::on_load_but_clicked() {
     QString fileName = QFileDialog::getOpenFileName(this,
-                       tr("Carregar Imagem"), QDir::currentPath(),
-                       tr("Imagens (*.png *.jpg *.bmp *.jpeg)"));
+                                                    tr("Load Image"), QDir::currentPath(),
+                                                    tr("Images (*.png *.jpg *.bmp *.jpeg)"));
 
     imagem.load(fileName);
     update_tile_pos();
@@ -54,13 +54,16 @@ void TilePicker::on_proximo_but_clicked() {
         return;
     }
 
-    current_tile++;
-    if ((current_tile) >= tiles_size) {
+
+    if (current_tile >= tiles_size) {
         return;
     }
+    current_tile++;
 
 
-    ui->label_tile->setText(tiles_string[current_tile]);
+    if(current_tile < tiles_size){
+        ui->label_tile->setText(tiles_string[current_tile]);
+    }
     vetor_tipos.push_back(temp_vector);
     temp_vector = std::make_shared<std::vector<std::shared_ptr<QPixmap>>>();
 
@@ -68,6 +71,8 @@ void TilePicker::on_proximo_but_clicked() {
 }
 
 void TilePicker::on_add_but_clicked() {
+
+
     update_tile_pos();
     if (imagem.isNull()) {
         return;
@@ -76,9 +81,9 @@ void TilePicker::on_add_but_clicked() {
     std::shared_ptr<QPixmap> temp;
     temp = std::make_shared<QPixmap>();
     (*temp) = QPixmap::fromImage(imagem.copy(x * tile_width + x_o,
-                                 y * tile_height + y_o,
-                                 tile_width,
-                                 tile_height));
+                                             y * tile_height + y_o,
+                                             tile_width,
+                                             tile_height));
 
     temp_vector->push_back(temp);
 
@@ -105,7 +110,7 @@ void TilePicker::update_tile_pos() {
                                    tile_height);
 
     QPixmap temp = QPixmap::fromImage(temp_tile);
-    temp = temp.scaled(ui->img_tile->width(), ui->img_tile->height());
+    temp = temp.scaled(ui->img_tile->width()-4, ui->img_tile->height()-4);
     ui->img_tile->setPixmap(temp);
     ui->img_tile->update();
 
@@ -113,3 +118,13 @@ void TilePicker::update_tile_pos() {
 
 
 
+
+void TilePicker::on_pushButton_clicked()
+{
+    on_load_but_clicked();
+    for (int i = 0;i < 30; ++i) {
+        on_add_but_clicked();
+        on_proximo_but_clicked();
+    }
+    on_ok_but_clicked();
+}

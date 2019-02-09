@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
+    <width>647</width>
     <height>287</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>647</width>
+    <height>287</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>647</width>
+    <height>287</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>TilePicker</string>
@@ -25,7 +37,7 @@
            <item>
             <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>Escolher tile para tipo:</string>
+              <string>Choose a texture for the tile type:</string>
              </property>
             </widget>
            </item>
@@ -43,14 +55,14 @@
            <item>
             <widget class="QPushButton" name="proximo_but">
              <property name="text">
-              <string>Proximo tipo</string>
+              <string>Next type</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="add_but">
              <property name="text">
-              <string>Adicionar ao tipo</string>
+              <string>Add to type</string>
              </property>
             </widget>
            </item>
@@ -59,7 +71,7 @@
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Posição do tile</string>
+            <string>Tile position</string>
            </property>
           </widget>
          </item>
@@ -70,7 +82,7 @@
              <item>
               <widget class="QLabel" name="label_3">
                <property name="text">
-                <string>Linha</string>
+                <string>Line</string>
                </property>
               </widget>
              </item>
@@ -88,7 +100,7 @@
              <item>
               <widget class="QLabel" name="label_4">
                <property name="text">
-                <string>Coluna</string>
+                <string>Column</string>
                </property>
               </widget>
              </item>
@@ -117,7 +129,7 @@
              <item>
               <widget class="QLabel" name="label_7">
                <property name="text">
-                <string>Offset Linha</string>
+                <string>Offset Line</string>
                </property>
               </widget>
              </item>
@@ -131,7 +143,7 @@
              <item>
               <widget class="QLabel" name="label_8">
                <property name="text">
-                <string>Offset Coluna</string>
+                <string>Offset Column</string>
                </property>
               </widget>
              </item>
@@ -194,6 +206,12 @@
        </item>
        <item>
         <widget class="QLabel" name="img_tile">
+         <property name="frameShape">
+          <enum>QFrame::WinPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -216,7 +234,14 @@
        <item>
         <widget class="QPushButton" name="load_but">
          <property name="text">
-          <string>Carregar</string>
+          <string>Load</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>FF</string>
          </property>
         </widget>
        </item>
