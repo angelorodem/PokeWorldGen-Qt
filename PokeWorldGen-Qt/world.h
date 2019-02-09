@@ -16,7 +16,6 @@ public:
         tileset() {}
         Generator::tile_type type;
         Generator::biome_type biome;
-        TilesetBioma::texture texture;
         uint32_t height; //not used yet
         bool blocks;
     };

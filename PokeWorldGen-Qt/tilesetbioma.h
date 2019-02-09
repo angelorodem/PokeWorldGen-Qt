@@ -4,19 +4,22 @@
 #include <generator.h>
 #include <QPixmap>
 #include <unordered_map>
+#include <QVarLengthArray>
 #include <memory>
 
 class TilesetBioma {
     public:
         TilesetBioma();
 
-        typedef std::shared_ptr<QPixmap> texture;
-        typedef std::shared_ptr<std::vector<texture>> texture_vector;
+        std::shared_ptr<QPixmap> tileset_pixmap;
 
-        void add_tile(Generator::tile_type tipo, texture_vector tile_img);
+        typedef std::shared_ptr<QRectF> texture_rect;
+        typedef std::shared_ptr<QVarLengthArray<texture_rect>> tex_rect_vector;
 
-        texture_vector getTile(Generator::tile_type tipo);
-        std::unordered_map<uint32_t, texture_vector> tiles;
+        void add_tile(Generator::tile_type tipo, tex_rect_vector tile_img);
+
+        tex_rect_vector getTile(Generator::tile_type tipo);
+        std::unordered_map<uint32_t, tex_rect_vector> tiles;
 
 
 };

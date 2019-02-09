@@ -7,6 +7,7 @@
 #include <QRgb>
 #include <QApplication>
 #include <QTime>
+#include <QVarLengthArray>
 
 #include <random>
 #include <ctime>

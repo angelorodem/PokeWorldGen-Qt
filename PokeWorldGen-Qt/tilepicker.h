@@ -7,6 +7,10 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QLabel>
+#include <QVarLengthArray>
+#include <QFile>
+#include <QMessageBox>
+#include <QDataStream>
 
 #include "tilesetbioma.h"
 
@@ -17,96 +21,99 @@ class TilePicker;
 }
 
 class TilePicker : public QDialog {
-        Q_OBJECT
+    Q_OBJECT
 
-    public:
-        explicit TilePicker(std::shared_ptr<TilesetBioma> bioma);
-        ~TilePicker();
+public:
+    bool loaded = false;
+    explicit TilePicker(std::shared_ptr<TilesetBioma> bioma);
+    ~TilePicker();
 
-    private slots:
-        void on_ok_but_clicked();
+private slots:
+    void on_ok_but_clicked();
 
-        void on_load_but_clicked();
+    void on_load_but_clicked();
 
-        void update_tile_pos();
+    void update_tile_pos();
 
-        void on_proximo_but_clicked();
+    void on_proximo_but_clicked();
 
-        void on_add_but_clicked();
+    void on_add_but_clicked();
 
-        void on_pushButton_clicked();
+    void on_pushButton_clicked();
 
 private:
-        Ui::TilePicker *ui;
-        QImage imagem;
-        uint32_t current_tile = 0;
 
-        std::vector<TilesetBioma::texture_vector> vetor_tipos;
-        TilesetBioma::texture_vector temp_vector;
 
-        std::shared_ptr<TilesetBioma> bioma_ref;
+    Ui::TilePicker *ui;
+    QImage imagem;
+    uint32_t current_tile = 0;
 
-        uint32_t tile_width = 16, tile_height = 16;
+    QVarLengthArray<TilesetBioma::tex_rect_vector> vetor_tipos;
+    TilesetBioma::tex_rect_vector temp_vector;
 
-        uint32_t x = 0;
-        uint32_t y = 0;
-        uint32_t x_o = 0;
-        uint32_t y_o = 0;
+    std::shared_ptr<TilesetBioma> bioma_ref;
 
-        const uint32_t tiles_size = 13;
-        const QString tiles_string[13] = {
-            "NE External edge",
-            "SE External edge",
-            "SW External edge",
-            "NW External edge",
+    uint32_t tile_width = 16, tile_height = 16;
 
-            "NE Internal edge",
-            "SE Internal edge",
-            "SW Internal edge",
-            "NW Internal edge",
+    uint32_t x = 0;
+    uint32_t y = 0;
+    uint32_t x_o = 0;
+    uint32_t y_o = 0;
 
-            "Vertical Wall West",
-            "Vertical Wall East",
-            "Horizontal Wall North",
-            "Horizontal Wall South",
+    const uint32_t tiles_size = 13;
+    const QString tiles_string[13] = {
+        "NE External edge",
+        "SE External edge",
+        "SW External edge",
+        "NW External edge",
 
-            "Ground"
-        };
+        "NE Internal edge",
+        "SE Internal edge",
+        "SW Internal edge",
+        "NW Internal edge",
 
-        const uint32_t biomas_size = 10;
-        const QString biomas_string[10] = {
-            "Tropical Forest",
-            "Temperate Forest",
-            "Boreal Forest",
+        "Vertical Wall West",
+        "Vertical Wall East",
+        "Horizontal Wall North",
+        "Horizontal Wall South",
 
-            "Grassland/Desert",
-            "Grassland",
-            "Grassland/Boreal",
+        "Ground"
+    };
 
-            "Snow",
-            "Snow/Tundra",
-            "Tundra",
-            "Desert",
-        };
+    const uint32_t biomas_size = 10;
+    const QString biomas_string[10] = {
+        "Tropical Forest",
+        "Temperate Forest",
+        "Boreal Forest",
 
-        Generator::tile_type tile_seq[13]  {
-            Generator::quina_ne_exter,
-            Generator::quina_se_exter,
-            Generator::quina_sw_exter,
-            Generator::quina_nw_exter,
+        "Grassland/Desert",
+        "Grassland",
+        "Grassland/Boreal",
 
-            Generator::quina_ne_inter,
-            Generator::quina_se_inter,
-            Generator::quina_sw_inter,
-            Generator::quina_nw_inter,
+        "Snow",
+        "Snow/Tundra",
+        "Tundra",
+        "Desert",
+    };
 
-            Generator::muro_vertical_w,
-            Generator::muro_vertical_e,
-            Generator::muro_horizontal_n,
-            Generator::muro_horizontal_s,
+    Generator::tile_type tile_seq[13]  {
+        Generator::quina_ne_exter,
+                Generator::quina_se_exter,
+                Generator::quina_sw_exter,
+                Generator::quina_nw_exter,
 
-            Generator::solo
-        };
+                Generator::quina_ne_inter,
+                Generator::quina_se_inter,
+                Generator::quina_sw_inter,
+                Generator::quina_nw_inter,
+
+                Generator::muro_vertical_w,
+                Generator::muro_vertical_e,
+                Generator::muro_horizontal_n,
+                Generator::muro_horizontal_s,
+
+                Generator::solo
+    };
 
 
 };

@@ -2,7 +2,7 @@
 
 void Viewport::tick() {
     update();
-    //QTimer::singleShot(16, this, SLOT(tick()));
+    QTimer::singleShot(100, this, SLOT(tick()));
 }
 
 Viewport::Viewport() {
@@ -11,13 +11,14 @@ Viewport::Viewport() {
 
     QCoreApplication::processEvents(QEventLoop::AllEvents, 300);
 
-    mapa = gen.generate_map(28);
+    mapa = gen.generate_map(100);
     noise = gen.terrain_noise;
 
     tileset_texture = std::make_shared<TilesetBioma>();
     TilePicker picker(tileset_texture);
-    picker.exec();
-
+    if(!picker.loaded){
+        picker.exec();
+    }
     QTimer::singleShot(100, this, SLOT(tick()));
 }
 
@@ -26,10 +27,22 @@ void Viewport::paintEvent(QPaintEvent *e) {
     QPainter p(this);
     p.setClipRect(e->rect());
 
-    drawTiles(p);
-    //drawDebug(p);
+    if(activate_debug){
+        drawTiles(p);
+    }else{
+        drawDebug(p);
+    }
 
 
+}
+
+void Viewport::keyPressEvent(QKeyEvent *e)
+{
+    QOpenGLWidget::keyPressEvent(e);
+
+    if (e->key() == Qt::Key_Space) {
+        activate_debug = !activate_debug;
+    }
 
 }
 
@@ -150,79 +163,85 @@ void Viewport::drawTiles(QPainter &p)
     float y_m = static_cast<float>(height()) / mapa->at(0).size();
 
     //p.fillRect(QRectF(x * x_m, y * y_m, x_m, y_m), QColor(0, 0, 0));
-    QPixmap* drawn_tile;
+    QPixmap* drawn_tile = tileset_texture->tileset_pixmap.get();
+    QRectF* tile_position;
 
     for (uint32_t x = 0; x < mapa->size(); ++x) {
         for (uint32_t y = 0; y < (*mapa)[x].size(); ++y) {
+            tile_position = (*tileset_texture->getTile(Generator::solo))[0].get();
+            p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
             switch ((*mapa)[x][y]) {
             case Generator::muro_vertical_e:
-                drawn_tile = (*tileset_texture->getTile(Generator::muro_vertical_e))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::muro_vertical_e))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::muro_vertical_w:
-                drawn_tile = (*tileset_texture->getTile(Generator::muro_vertical_w))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::muro_vertical_w))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::muro_horizontal_n:
-                drawn_tile = (*tileset_texture->getTile(Generator::muro_horizontal_n))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::muro_horizontal_n))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::muro_horizontal_s:
-                drawn_tile = (*tileset_texture->getTile(Generator::muro_horizontal_s))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::muro_horizontal_s))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::quina_ne_inter:
-                drawn_tile = (*tileset_texture->getTile(Generator::quina_ne_inter))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::quina_ne_inter))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::quina_nw_inter:
-                drawn_tile = (*tileset_texture->getTile(Generator::quina_nw_inter))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::quina_nw_inter))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::quina_se_inter:
-                drawn_tile = (*tileset_texture->getTile(Generator::quina_se_inter))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::quina_se_inter))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::quina_sw_inter:
-                drawn_tile = (*tileset_texture->getTile(Generator::quina_sw_inter))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::quina_sw_inter))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::quina_ne_exter:
-                drawn_tile = (*tileset_texture->getTile(Generator::quina_ne_exter))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::quina_ne_exter))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::quina_nw_exter:
-                drawn_tile = (*tileset_texture->getTile(Generator::quina_nw_exter))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::quina_nw_exter))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::quina_se_exter:
-                drawn_tile = (*tileset_texture->getTile(Generator::quina_se_exter))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::quina_se_exter))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::quina_sw_exter:
-                drawn_tile = (*tileset_texture->getTile(Generator::quina_sw_exter))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::solo))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
+
+                tile_position = (*tileset_texture->getTile(Generator::quina_sw_exter))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::solo:
-                drawn_tile = (*tileset_texture->getTile(Generator::solo))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                //tile_position = (*tileset_texture->getTile(Generator::solo))[0].get();
+                //p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::water:
-                drawn_tile = (*tileset_texture->getTile(Generator::water))[0].get();
-                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,QRectF(0,0,16,16));
+                tile_position = (*tileset_texture->getTile(Generator::water))[0].get();
+                p.drawPixmap(QRectF(x * x_m, y * y_m, x_m, y_m),*drawn_tile,*tile_position);
 
                 break;
             case Generator::the_void:

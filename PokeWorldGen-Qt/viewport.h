@@ -6,6 +6,7 @@
 #include <QBrush>
 #include <QPen>
 #include <QPaintEvent>
+#include <QKeyEvent>
 #include <QTimer>
 #include <cstdint>
 #include <memory>
@@ -22,9 +23,12 @@ class Viewport : public QOpenGLWidget {
         Viewport();
 
         void paintEvent(QPaintEvent *e);
+        void keyPressEvent(QKeyEvent *e);
+
         void drawDebug(QPainter &p);
         void drawTiles(QPainter &p);
     private:
+        bool activate_debug = true;
         Generator::tile_2d_vector mapa;
         Generator::ui32_2d_vector noise;
         std::shared_ptr<TilesetBioma> tileset_texture;
