@@ -2,7 +2,7 @@
 # Pokemon Procedural World Generation
 Procedural map generation for pokemon using C++ and Qt 
 
-Well, this actually don't generate a pokemon world yet, it creates a height map based on simplex noise using [FastNoise](https://github.com/Auburns/FastNoise) lib and then filter out non valid spots using rules, then it lays textures over the resulting tiles, this texture is customizable for every avaible tile.
+Well, this actually don't generate a pokemon world yet, it creates a height map based on simplex noise using [FastNoise](https://github.com/Auburns/FastNoise) lib and filter out non valid spots using rules, then it lays textures over the resulting tiles, this texture is customizable for every avaible tile.
 <p align="center">
 <img src="https://github.com/angelorodem/PokeWorldGen-Qt/blob/master/images/tiles.png?raw=true" alt="Tiled map" width="400" height="400">
   </p>
