@@ -43,10 +43,13 @@ private slots:
 
 private:
 
+    void populate_tile_picker();
 
     Ui::TilePicker *ui;
     QImage imagem;
     uint32_t current_tile = 0;
+
+    std::vector<std::shared_ptr<QPixmap>> tilepicker_tiles;
 
     QVarLengthArray<TilesetBioma::tex_rect_vector> vetor_tipos;
     TilesetBioma::tex_rect_vector temp_vector;

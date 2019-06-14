@@ -122,7 +122,7 @@ void Generator::show_temperature(uint32_t xsize, uint32_t ysize)
     temperature_window->setPixmap(QPixmap::fromImage(map.scaled(xsize + 405,
                                                                 ysize + 405)));
     temperature_window->setWindowTitle("TEMPERATURE");
-    temperature_window->show();
+    //temperature_window->show();
 }
 
 void Generator::show_rain(uint32_t xsize, uint32_t ysize)
@@ -141,7 +141,7 @@ void Generator::show_rain(uint32_t xsize, uint32_t ysize)
     rain_window->setPixmap(QPixmap::fromImage(map.scaled(xsize + 405,
                                                          ysize + 405)));
     rain_window->setWindowTitle("RAIN");
-    rain_window->show();
+    //rain_window->show();
 }
 
 Generator::ui32_2d_vector Generator::simplexNoise(

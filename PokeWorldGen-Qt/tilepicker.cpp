@@ -101,6 +101,8 @@ void TilePicker::on_load_but_clicked() {
     *bioma_ref->tileset_pixmap = QPixmap::fromImage(imagem);
     update_tile_pos();
     ui->load_but->setEnabled(false);
+
+    populate_tile_picker();
 }
 
 void TilePicker::on_proximo_but_clicked() {
@@ -192,4 +194,26 @@ void TilePicker::on_pushButton_clicked()
         on_proximo_but_clicked();
     }
     on_ok_but_clicked();
+}
+
+void TilePicker::populate_tile_picker()
+{
+    if (imagem.isNull()) {
+        return;
+    }
+
+    int x_populate = 0;
+    int y_populate = 0;
+    tile_width = tile_height = ui->size_spin->value();
+    x_o = ui->offset_coluna->value();
+    y_o = ui->offset_linha->value();
+
+    QImage temp_tile = imagem.copy(x * tile_width + x_o, y * tile_height + y_o,
+                                   tile_width,
+                                   tile_height);
+
+    QPixmap temp = QPixmap::fromImage(temp_tile);
+    temp = temp.scaled(ui->img_tile->width()-4, ui->img_tile->height()-4);
+    ui->img_tile->setPixmap(temp);
+    ui->img_tile->update();
 }
